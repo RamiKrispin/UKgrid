@@ -29,6 +29,6 @@ col <- setdiff(1:ncol(df), col_time)
 df1 <- as.data.frame(df)
 col_names <- c(names(df)[col_time], names(df)[col])
 
-UK_grid_demand <- df1[, col_names]
+UKgrid <- df1[, col_names]
 
-devtools::use_data(UK_grid, overwrite = TRUE)
+devtools::use_data(UKgrid, overwrite = TRUE)
