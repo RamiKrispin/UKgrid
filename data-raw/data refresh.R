@@ -31,4 +31,4 @@ col_names <- c(names(df)[col_time], names(df)[col])
 
 UK_grid_demand <- df1[, col_names]
 
-devtools::use_data(UK_grid_demand, overwrite = TRUE)
+devtools::use_data(UK_grid, overwrite = TRUE)
