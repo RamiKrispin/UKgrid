@@ -14,7 +14,7 @@
 
 
 #' Extracting and transforming data from the UKgrid Dataset
-#' @param type A character, define the output type - c("xts", "zoo", "ts", "data.frame", "tbl")
+#' @param type A character, define the output type - c("xts", "zoo", "ts", "mts", "data.frame", "tbl", "data.table")
 #' @param columns Selecting the columns names to be used from the UKgrid dataset,
 #' can be either the numeric values of the columns index, or a string with the column names
 #' @param start Defines the starting date and time of the data extractions,
@@ -146,5 +146,17 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL)
     ts.obj <- xts::xts(df[, which(colnames(df) != time_stamp) ], order.by = UKgrid$TIMESTAMP)
   } else if(type == "zoo"){
     ts.obj <- zoo::zoo(df[, which(colnames(df) != time_stamp) ], order.by = UKgrid$TIMESTAMP)
+  } else if(type == "ts"){
+    ts.obj <- stats::ts(df[, which(colnames(df) != time_stamp) ],
+                        start = c(lubridate::yday(start_date), 2 * lubridate::hour(start_date) + lubridate::minute(start_date) / 30 + 1),
+                        frequency = 48)
+  } else if(type == "data.frame"){
+    ts.obj <- df
+  } else if(type == "tbl"){
+    ts.obj <- dplyr::as.tbl(df)
+  } else if(type == "data.table"){
+    ts.obj <- data.table::as.data.table(df)
   }
+
+  return(ts.obj)
 }
