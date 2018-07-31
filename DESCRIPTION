@@ -11,3 +11,16 @@ LazyData: true
 RoxygenNote: 6.0.1
 Depends:
   R (>= 3.0.2)
+Imports:
+  data.table(>= 1.11.2),
+  dplyr(>= 0.7.5),
+  lubridate (>= 1.6.0),
+  magrittr (>= 1.5),
+  xts (>= 0.10-1),
+  zoo (>= 1.8-0)
+Suggests:
+    knitr,
+    rmarkdown,
+    devtools
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
