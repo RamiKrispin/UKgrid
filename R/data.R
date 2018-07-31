@@ -143,9 +143,9 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL)
     dplyr::filter(TIMESTAMP >= start_date & TIMESTAMP <= end_date)
 
   if(type == "xts"){
-    ts.obj <- xts::xts(df[, which(colnames(df) != time_stamp) ], order.by = UKgrid$TIMESTAMP)
+    ts.obj <- xts::xts(df[, which(colnames(df) != time_stamp) ], order.by = df$TIMESTAMP)
   } else if(type == "zoo"){
-    ts.obj <- zoo::zoo(df[, which(colnames(df) != time_stamp) ], order.by = UKgrid$TIMESTAMP)
+    ts.obj <- zoo::zoo(df[, which(colnames(df) != time_stamp) ], order.by = df$TIMESTAMP)
   } else if(type == "ts"){
     ts.obj <- stats::ts(df[, which(colnames(df) != time_stamp) ],
                         start = c(lubridate::yday(start_date), 2 * lubridate::hour(start_date) + lubridate::minute(start_date) / 30 + 1),
