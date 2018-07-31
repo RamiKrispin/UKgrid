@@ -26,8 +26,10 @@
 #'
 
 extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL){
-  base::data("UKgrid", package = "UKgrid")
-
+  `%>%` <- magrittr::`%>%`
+  UKgrid <- time_stamp <- NULL
+  UKgrid <- UKgrid::UKgrid
+  time_stamp <- "TIMESTAMP"
   # Error handling
   # Checking the values of the columns argument
   if(!base::is.null(columns)){
@@ -41,8 +43,8 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL)
         }
       }
       # Including the timestamp of the series
-        if(!"TIMESTAMP" %in% columns){
-          columns <- c("TIMESTAMP", columns)
+        if(!time_stamp %in% columns){
+          columns <- c(time_stamp, columns)
         }
       # Getting the numeric value of the columns
       columns <- base::which(columns %in% base::names(UKgrid))
@@ -57,8 +59,8 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL)
 
       }
 
-      if(!"TIMESTAMP" %in% base::names(UKgrid)[columns]){
-        columns <- c(base::which(colnames(UKgrid) == "TIMESTAMP"), columns)
+      if(!time_stamp %in% base::names(UKgrid)[columns]){
+        columns <- c(base::which(colnames(UKgrid) == time_stamp), columns)
       }
     } else {
         stop("The 'columns argument is invalid")
@@ -137,12 +139,12 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL)
 
 
 
-  df <- UKgrid %>% dplyr::select(c("TIMESTAMP", columns)) %>%
+  df <- UKgrid %>% dplyr::select(c(time_stamp, columns)) %>%
     dplyr::filter(TIMESTAMP >= start_date & TIMESTAMP <= end_date)
 
   if(type == "xts"){
-    ts.obj <- xts::xts(df[, which(colnames(df) != "TIMESTAMP") ], order.by = UKgrid$TIMESTAMP)
+    ts.obj <- xts::xts(df[, which(colnames(df) != time_stamp) ], order.by = UKgrid$TIMESTAMP)
   } else if(type == "zoo"){
-    ts.obj <- zoo::zoo(df[, which(colnames(df) != "TIMESTAMP") ], order.by = UKgrid$TIMESTAMP)
+    ts.obj <- zoo::zoo(df[, which(colnames(df) != time_stamp) ], order.by = UKgrid$TIMESTAMP)
   }
 }
