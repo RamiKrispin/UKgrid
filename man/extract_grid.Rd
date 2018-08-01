@@ -4,10 +4,11 @@
 \alias{extract_grid}
 \title{Extracting and transforming data from the UKgrid Dataset}
 \usage{
-extract_grid(type = "xts", columns = "ND", start = NULL, end = NULL)
+extract_grid(type = "xts", columns = "ND", start = NULL, end = NULL,
+  aggregate = NULL)
 }
 \arguments{
-\item{type}{A character, define the output type - c("xts", "zoo", "ts", "data.frame", "tbl")}
+\item{type}{A character, define the output type - c("xts", "zoo", "ts", "mts", "data.frame", "tbl", "data.table")}
 
 \item{columns}{Selecting the columns names to be used from the UKgrid dataset,
 can be either the numeric values of the columns index, or a string with the column names}
@@ -17,6 +18,9 @@ could be either an integer with the year value (4-digits format) or Date/POSIXt 
 
 \item{end}{Defines the ending date and time of the data extractions,
 could be either an integer with the year value (4-digits format) or Date/POSIXt obejct}
+
+\item{aggregate}{A string, if not NULL (default) aggregate up the series.
+possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly")}
 }
 \description{
 Extracting and transforming data from the UKgrid Dataset
