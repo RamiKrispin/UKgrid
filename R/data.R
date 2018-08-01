@@ -21,11 +21,13 @@
 #' could be either an integer with the year value (4-digits format) or Date/POSIXt obejct
 #' @param end Defines the ending date and time of the data extractions,
 #' could be either an integer with the year value (4-digits format) or Date/POSIXt obejct
+#' @param aggregate A string, if not NULL (default) aggregate up the series.
+#' possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly")
 #' @example
 #' df <- extract_grid(type = "xts", columns = "ND", start = 2017)
 #'
 
-extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL){
+extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL, aggregate = NULL){
   `%>%` <- magrittr::`%>%`
   UKgrid <- time_stamp <- NULL
   UKgrid <- UKgrid::UKgrid
