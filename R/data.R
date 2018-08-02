@@ -141,9 +141,23 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
 
 
 
+
   df <- UKgrid %>% dplyr::select(c(time_stamp, columns)) %>%
     dplyr::filter(TIMESTAMP >= start_date & TIMESTAMP <= end_date)
 
+  col_names <- NULL
+  col_names <- base::colnames(df)[base::which(base::colnames(df) != time_stamp)]
+
+  # c("hourly", "daily", "weekly", "monthly", "quarterly")
+  if(base::is.null(aggregate)){
+    df1 <- df
+  }  else if(aggregate == "hourly"){
+    df$date <- base::as.Date(df$TIMESTAMP)
+    df$hour <- lubridate::hour(df$TIMESTAMP)
+    df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
+    dplyr::group_by(date, hour) %>%
+    dplyr::summarise_all(dplyr::funs(sum))
+    }
   if(type == "xts"){
     ts.obj <- xts::xts(df[, which(colnames(df) != time_stamp) ], order.by = df$TIMESTAMP)
   } else if(type == "zoo"){
