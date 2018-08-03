@@ -20,7 +20,7 @@ could be either an integer with the year value (4-digits format) or Date/POSIXt 
 could be either an integer with the year value (4-digits format) or Date/POSIXt obejct}
 
 \item{aggregate}{A string, if not NULL (default) aggregate up the series.
-possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly")}
+possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")}
 }
 \description{
 Extracting and transforming data from the UKgrid Dataset
