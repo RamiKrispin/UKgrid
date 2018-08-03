@@ -151,13 +151,48 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
   # c("hourly", "daily", "weekly", "monthly", "quarterly")
   if(base::is.null(aggregate)){
     df1 <- df
+    frequency <- 48
+    start <- c(lubridate::yday(start_date), 2 * lubridate::hour(start_date) + lubridate::minute(start_date) / 30 + 1)
   }  else if(aggregate == "hourly"){
     df$date <- base::as.Date(df$TIMESTAMP)
     df$hour <- lubridate::hour(df$TIMESTAMP)
     df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
     dplyr::group_by(date, hour) %>%
     dplyr::summarise_all(dplyr::funs(sum))
-    }
+    df1$TIMESTAMP <- lubridate::ymd_h(paste(df1$date, df1$hour, sep = " "))
+    df1$date <- df1$hour <- NULL
+    df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
+    frequency <- 24
+    start <- c(lubridate::yday(start_date), lubridate::hour(start_date) )
+  } else if(aggregate == "daily"){
+    df$date <- base::as.Date(df$TIMESTAMP)
+    df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
+      dplyr::group_by(date) %>%
+      dplyr::summarise_all(dplyr::funs(sum))
+    df1$TIMESTAMP <- df1$date
+    df1$date <-  NULL
+    df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
+    frequency <- 365
+    start <- c(lubridate::yday(start_date), lubridate::week(start_date))
+  } else if(aggregate == "weekly"){
+    df$date <- base::as.Date(df$TIMESTAMP)
+    df$week <- lubridate::week(df$TIMESTAMP)
+    df$year <- lubridate::year(df$TIMESTAMP)
+    df1 <- df %>% dplyr::select(-TIMESTAMP, - date) %>%
+      dplyr::group_by(year, week) %>%
+      dplyr::summarise_all(dplyr::funs(sum)) %>%
+      dplyr::left_join(df %>%
+                         dplyr::group_by(year, week) %>%
+                         dplyr::summarise(date = min(date)))
+
+    df1$TIMESTAMP <- df1$date
+    df1$date <- df1$week <- df1$year <- NULL
+    df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
+    frequency <- 52
+    start <- c(lubridate::yday(start_date), lubridate::week(start_date) )
+  }
+
+
   if(type == "xts"){
     ts.obj <- xts::xts(df[, which(colnames(df) != time_stamp) ], order.by = df$TIMESTAMP)
   } else if(type == "zoo"){
@@ -165,7 +200,7 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
   } else if(type == "ts"){
     ts.obj <- stats::ts(df[, which(colnames(df) != time_stamp) ],
                         start = c(lubridate::yday(start_date), 2 * lubridate::hour(start_date) + lubridate::minute(start_date) / 30 + 1),
-                        frequency = 48)
+                        frequency = frequency)
   } else if(type == "data.frame"){
     ts.obj <- df
   } else if(type == "tbl"){
