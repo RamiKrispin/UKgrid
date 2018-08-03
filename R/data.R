@@ -22,7 +22,7 @@
 #' @param end Defines the ending date and time of the data extractions,
 #' could be either an integer with the year value (4-digits format) or Date/POSIXt obejct
 #' @param aggregate A string, if not NULL (default) aggregate up the series.
-#' possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly")
+#' possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")
 #' @example
 #' df <- extract_grid(type = "xts", columns = "ND", start = 2017)
 #'
@@ -148,11 +148,10 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
   col_names <- NULL
   col_names <- base::colnames(df)[base::which(base::colnames(df) != time_stamp)]
 
-  # c("hourly", "daily", "weekly", "monthly", "quarterly")
   if(base::is.null(aggregate)){
     df1 <- df
     frequency <- 48
-    start <- c(lubridate::yday(start_date), 2 * lubridate::hour(start_date) + lubridate::minute(start_date) / 30 + 1)
+    start <- c(1, 2 * lubridate::hour(start_date) + lubridate::minute(start_date) / 30 + 1)
   }  else if(aggregate == "hourly"){
     df$date <- base::as.Date(df$TIMESTAMP)
     df$hour <- lubridate::hour(df$TIMESTAMP)
@@ -163,7 +162,7 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
     df1$date <- df1$hour <- NULL
     df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
     frequency <- 24
-    start <- c(lubridate::yday(start_date), lubridate::hour(start_date) )
+    start <- c(1, lubridate::hour(start_date))
   } else if(aggregate == "daily"){
     df$date <- base::as.Date(df$TIMESTAMP)
     df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
@@ -173,7 +172,7 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
     df1$date <-  NULL
     df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
     frequency <- 365
-    start <- c(lubridate::yday(start_date), lubridate::week(start_date))
+    start <- c(lubridate::year(start_date), lubridate::yday(start_date))
   } else if(aggregate == "weekly"){
     df$date <- base::as.Date(df$TIMESTAMP)
     df$week <- lubridate::week(df$TIMESTAMP)
@@ -190,7 +189,55 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
     df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
     frequency <- 52
     start <- c(lubridate::yday(start_date), lubridate::week(start_date) )
+  } else if(aggregate == "monthly"){
+    df$date <- base::as.Date(df$TIMESTAMP)
+    df$month <- lubridate::month(df$TIMESTAMP)
+    df$year <- lubridate::year(df$TIMESTAMP)
+    df1 <- df %>% dplyr::select(-TIMESTAMP, - date) %>%
+      dplyr::group_by(year, month) %>%
+      dplyr::summarise_all(dplyr::funs(sum)) %>%
+      dplyr::left_join(df %>%
+                         dplyr::group_by(year, month) %>%
+                         dplyr::summarise(date = min(date)))
+
+    df1$TIMESTAMP <- df1$date
+    df1$date <- df1$month <- df1$year <- NULL
+    df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
+    frequency <- 12
+    start <- c(lubridate::year(start_date), lubridate::month(start_date) )
+  } else if(aggregate == "quarterly"){
+    df$date <- base::as.Date(df$TIMESTAMP)
+    df$quarter <- lubridate::quarter(df$TIMESTAMP)
+    df$year <- lubridate::year(df$TIMESTAMP)
+    df1 <- df %>% dplyr::select(-TIMESTAMP, - date) %>%
+      dplyr::group_by(year, quarter) %>%
+      dplyr::summarise_all(dplyr::funs(sum)) %>%
+      dplyr::left_join(df %>%
+                         dplyr::group_by(year, quarter) %>%
+                         dplyr::summarise(date = min(date)))
+
+    df1$TIMESTAMP <- df1$date
+    df1$date <- df1$quarter <- df1$year <- NULL
+    df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
+    frequency <- 4
+    start <- c(lubridate::year(start_date), lubridate::quarter(start_date) )
+  } else if(aggregate == "yearly"){
+    df$date <- base::as.Date(df$TIMESTAMP)
+    df$year <- lubridate::year(df$TIMESTAMP)
+    df1 <- df %>% dplyr::select(-TIMESTAMP, - date) %>%
+      dplyr::group_by(year) %>%
+      dplyr::summarise_all(dplyr::funs(sum)) %>%
+      dplyr::left_join(df %>%
+                         dplyr::group_by(year) %>%
+                         dplyr::summarise(date = min(date)))
+
+    df1$TIMESTAMP <- df1$date
+    df1$date <- df1$year <- NULL
+    df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
+    frequency <- 1
+    start <- c(lubridate::year(start_date))
   }
+
 
 
   if(type == "xts"){
