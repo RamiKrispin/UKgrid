@@ -35,13 +35,19 @@ library(UKgrid)
 data("UKgrid")
 
 # Extract only the demand field (ND - Net Demand) using xts format
-extract_grid(type = "xts", columns = "ND") 
+extract_grid(type = "xts", 
+             columns = "ND") 
 
 # Extract the demand between 2016 and 2017 using tbl format
-extract_grid(type = "tbl", columns = "ND", start = 2016, end = 2017)
+extract_grid(type = "tbl", 
+             columns = "ND", 
+             start = 2016, 
+             end = 2017)
 
 # Extract the first 10 days in 2018 and aggregate to hourly using zoo format
-extract_grid(type = "zoo", columns = "ND", 
-             start = as.Date("2018-01-01"), end = as.Date("2018-01-10"),
+extract_grid(type = "zoo", 
+             columns = "ND", 
+             start = as.Date("2018-01-01"), 
+             end = as.Date("2018-01-10"),
              aggregate = "hourly")
 ``` 
