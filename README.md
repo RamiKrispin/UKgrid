@@ -9,7 +9,9 @@ An R data package with the UK [National Grid](https://en.wikipedia.org/wiki/Nati
 
 Overview
 --------
-The UKgrid dataset is an example of a multiple seasonality time series. This time series captures the demand for electricity and its components in the UK since 2011 using half-hour intervals. In addition, the package provides a function to extract, subset and aggregate the series into `ts`, `xts`, `zoo`, `data.frame`, `data.table`, or `tbl`.
+The UKgrid dataset is an example of a multiple seasonality time series. This time series captures the demand for electricity and its components in the UK since 2011 using half-hour intervals. In addition, the package provides a function to extract, subset and aggregate the series into `ts`, `xts`, `zoo`, `data.frame`, `data.table`, or `tbl`. 
+
+The data was sourced from the National Grid UK [website](https://www.nationalgrid.com/uk)
 
 
 
@@ -24,6 +26,7 @@ devtools::install_github("RamiKrispin/TSstudio")
 ```
 
 Usage
+-----
 
 ``` r
 library(UKgrid)
