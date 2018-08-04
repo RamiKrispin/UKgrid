@@ -5,7 +5,7 @@
 \title{Extracting and transforming data from the UKgrid Dataset}
 \usage{
 extract_grid(type = "xts", columns = "ND", start = NULL, end = NULL,
-  aggregate = NULL)
+  aggregate = NULL, weekly_agg = "index")
 }
 \arguments{
 \item{type}{A character, define the output type - c("xts", "zoo", "ts", "mts", "data.frame", "tbl", "data.table")}
@@ -21,7 +21,14 @@ could be either an integer with the year value (4-digits format) or Date/POSIXt 
 
 \item{aggregate}{A string, if not NULL (default) aggregate up the series.
 possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")}
+
+\item{weekly_agg}{A string, set the week of the year definition if the argument "aggregate"  is set to "weekly".
+Possible options "index" (default), "week", "isoweek", or "epiweek"}
 }
 \description{
 Extracting and transforming data from the UKgrid Dataset
+}
+\examples{
+df <- extract_grid(type = "xts", columns = "ND", start = 2017)
+
 }

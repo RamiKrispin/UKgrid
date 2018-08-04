@@ -23,9 +23,9 @@
 #' could be either an integer with the year value (4-digits format) or Date/POSIXt obejct
 #' @param aggregate A string, if not NULL (default) aggregate up the series.
 #' possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")
-#' @weekly_agg A string, set the week of the year definition if the argument "aggregate"  is set to "weekly".
+#' @param weekly_agg A string, set the week of the year definition if the argument "aggregate"  is set to "weekly".
 #' Possible options "index" (default), "week", "isoweek", or "epiweek"
-#' @example
+#' @examples
 #' df <- extract_grid(type = "xts", columns = "ND", start = 2017)
 #'
 
