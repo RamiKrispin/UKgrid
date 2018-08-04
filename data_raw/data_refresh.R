@@ -8,9 +8,7 @@ df_11_16$SETTLEMENT_DATE <- lubridate::dmy(df_11_16$SETTLEMENT_DATE)
 df_17$SETTLEMENT_DATE <- lubridate::dmy(df_17$SETTLEMENT_DATE)
 df_18$SETTLEMENT_DATE <- lubridate::dmy(df_18$SETTLEMENT_DATE)
 
-
-df_17$I014_TSD.1 <- NA
-df_18$I014_TSD.1 <- NA
+df_11_16$I014_TSD.1 <- NULL
 
 df <- rbind(df_11_16, df_17, df_18)
 df$year <- lubridate::year(df$SETTLEMENT_DATE)
