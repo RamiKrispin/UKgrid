@@ -4,7 +4,7 @@ UKgrid
 An R data package with the UK [National Grid](https://en.wikipedia.org/wiki/National_Grid_(Great_Britain)) historical demand for electricity between 2011 and 2018
 
 
-
+![UK Grid](https://github.com/RamiKrispin/UKgrid/blob/master/vignettes/png/Rplot.png)
 
 
 Overview
