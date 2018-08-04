@@ -23,16 +23,38 @@
 #' could be either an integer with the year value (4-digits format) or Date/POSIXt obejct
 #' @param aggregate A string, if not NULL (default) aggregate up the series.
 #' possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")
+#' @weekly_agg A string, set the week of the year definition if the argument "aggregate"  is set to "weekly".
+#' Possible options "index" (default), "week", "isoweek", or "epiweek"
 #' @example
 #' df <- extract_grid(type = "xts", columns = "ND", start = 2017)
 #'
 
-extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL, aggregate = NULL){
+extract_grid <- function(type = "xts",
+                         columns = "ND",
+                         start = NULL,
+                         end = NULL,
+                         aggregate = NULL,
+                         weekly_agg = "index"){
   `%>%` <- magrittr::`%>%`
   UKgrid <- time_stamp <- NULL
   UKgrid <- UKgrid::UKgrid
   time_stamp <- "TIMESTAMP"
   # Error handling
+
+  if(!base::is.null(aggregate)){
+    if(!aggregate %in% c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")){
+      warning("The value of the 'aggregate' argument is not valid and will be ignored")
+      aggregate <- NULL
+    } else if(aggregate == "weekly"){
+      if(!weekly_agg %in% c("index", "week", "isoweek", "epiweek")){
+        warning("The value of the 'weekly_agg' argument is not valid, using the default value - 'index'")
+        weekly_agg <- "index"
+      }
+    }
+  }
+
+
+
   # Checking the values of the columns argument
   if(!base::is.null(columns)){
     if(base::is.character(columns)){
@@ -175,13 +197,43 @@ extract_grid <- function(type = "xts", columns = "ND", start = NULL, end = NULL,
     start <- c(lubridate::year(start_date), lubridate::yday(start_date))
   } else if(aggregate == "weekly"){
     df$date <- base::as.Date(df$TIMESTAMP)
-    df$week <- lubridate::isoweek(df$TIMESTAMP)
     df$year <- lubridate::year(df$TIMESTAMP)
+
+    if(weekly_agg != "index"){
+    if(weekly_agg == "week"){
+      df$week <- lubridate::week(df$TIMESTAMP)
+    } else if(weekly_agg == "isoweek"){
+      df$week <- lubridate::isoweek(df$TIMESTAMP)
+    } else if(weekly_agg == "epiweek"){
+      df$week <- lubridate::epiweek(df$TIMESTAMP)
+    } else if(weekly_agg == "index"){
+      df$week <- lubridate::isoweek(df$TIMESTAMP)
+    }
+
     df1 <- df %>% dplyr::select(-TIMESTAMP, - date) %>%
       dplyr::group_by(year, week) %>%
       dplyr::summarise_all(dplyr::funs(sum))
+    } else if(weekly_agg == "index"){
+      temp <- index <- NULL
+
+      index =  seq.Date(from = as.Date(start_date),
+                             to = as.Date(end_date),
+                             by = "weeks" )
+
+      temp <- df %>% dplyr::select(-TIMESTAMP, -year) %>%
+      dplyr::group_by(date) %>%
+        dplyr::summarise_all(dplyr::funs(sum))
+      temp$week <- base::rep(1:base::length(index), each = 7)[1:nrow(temp)]
+
+      df1 <- temp %>% dplyr::select(-date) %>%
+      dplyr::group_by(week) %>%
+        dplyr::summarise_all(dplyr::funs(sum))
+    }
+
     df1$TIMESTAMP <- base::seq.Date(from = base::as.Date(start_date), by = "weeks", length.out = nrow(df1))
     df1$date <- df1$week <- df1$year <- NULL
+
+
     df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
     frequency <- 52
     start <- c(lubridate::year(start_date), lubridate::week(start_date))
