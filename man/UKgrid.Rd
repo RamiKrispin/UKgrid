@@ -6,7 +6,7 @@
 \title{The UK National Electricity Transmission System Dataset}
 \format{Data frame with timestamp (half-hour intervals)}
 \source{
-The UK natioanl grid \href{https://www.nationalgrid.com/uk}{link}
+The UK natioanl grid \href{https://www.nationalgrid.com/uk}{website}
 }
 \usage{
 UKgrid
@@ -14,6 +14,23 @@ UKgrid
 \description{
 The demand for electricity in the UK since 2011
 Units: Thousands of units
+}
+\details{
+Field descriptions, source National Grid UK \href{https://www.nationalgrid.com/uk}{website}
+
+TIMESTAMP - a POSIXt object (if not aggregate to daily frequency and above), the time stamp of the series observations
+
+ND - National Demand, National Demand is calculated as a sum of generation based on National Grid operational generation metering
+
+I014_ND - Equivalent to ND (above) but calculated using settlement metered generation data from the I014 file where available
+
+TSD - Transmission System Demand, This is the Transmission System generation requirement and is equivalent to the Initial Transmission System Outturn (ITSDO) and Transmission System Demand Forecast on BM Reports. Transmission System Demand is equal to the ND plus the additional generation required to meet station load, pump storage pumping and interconnector exports
+
+I014_TSD - Equivalent to TSD (above), but calculated using settlement metered generation data from the I014 file where available
+
+ENGLAND_WALES_DEMAND - England and Wales Demand, as ND above but on an England and Wales basis
+
+EMBEDDED_WIND_GENERATION - Estimated Embedded Wind Generation, This is an estimate of the GB wind generation from wind farms which do not have Transmission System metering installed. These wind farms are embedded in the distribution network and invisible to National Grid. Their effect is to suppress the electricity demand during periods of high wind. The true output of these generators is not known so an estimate is provided based on National Grid’s best model
 }
 \examples{
 data(UKgrid)
