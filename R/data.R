@@ -71,6 +71,7 @@
 #' possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")
 #' @param weekly_agg A string, set the week of the year definition if the argument "aggregate"  is set to "weekly".
 #' Possible options "index" (default), "week", "isoweek", or "epiweek"
+#' @param na.rm A boolean, if TRUE will use the na.rm function to ignore any missing values in the aggregation process
 #' @details Field descriptions, source National Grid UK \href{https://www.nationalgrid.com/uk}{website}
 #'
 #' TIMESTAMP - a POSIXt object (if not aggregate to daily frequency and above), the time stamp of the series observations
@@ -132,6 +133,10 @@ extract_grid <- function(type = "xts",
   time_stamp <- "TIMESTAMP"
   # Error handling
 
+  if(!base::is.logical(na.rm)){
+    warning("The value of the 'na.rm' argument is not valid, using default option - TRUE")
+    na.rm <- TRUE
+  }
   if(!base::is.null(aggregate)){
     if(!aggregate %in% c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")){
       warning("The value of the 'aggregate' argument is not valid and will be ignored")
