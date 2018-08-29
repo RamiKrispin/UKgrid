@@ -5,7 +5,7 @@
 \title{Extracting and transforming data from the UKgrid Dataset}
 \usage{
 extract_grid(type = "xts", columns = "ND", start = NULL, end = NULL,
-  aggregate = NULL, weekly_agg = "index")
+  aggregate = NULL, weekly_agg = "index", na.rm = TRUE)
 }
 \arguments{
 \item{type}{A character, define the output type - c("xts", "zoo", "ts", "mts", "data.frame", "tbl", "data.table")}
@@ -24,6 +24,8 @@ possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quar
 
 \item{weekly_agg}{A string, set the week of the year definition if the argument "aggregate"  is set to "weekly".
 Possible options "index" (default), "week", "isoweek", or "epiweek"}
+
+\item{na.rm}{A boolean, if TRUE will use the na.rm function to ignore any missing values in the aggregation process}
 }
 \description{
 Extracting and transforming data from the UKgrid Dataset
