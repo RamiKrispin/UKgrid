@@ -54,6 +54,7 @@
 #'
 #' @examples
 #' data(UKgrid)
+#' plot(UKgrid$ND)
 
 "UKgrid"
 

@@ -63,5 +63,6 @@ I014_EAST_WEST_FLOW - As above (EAST_WEST_FLOW), but calculated based on settlem
 }
 \examples{
 data(UKgrid)
+plot(UKgrid$ND)
 }
 \keyword{datasets}
