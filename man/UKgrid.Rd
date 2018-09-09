@@ -21,7 +21,7 @@ Field descriptions, source National Grid UK \href{https://www.nationalgrid.com/u
 
 TIMESTAMP - a POSIXt object (if not aggregate to daily frequency and above), the time stamp of the series observations
 
-ND - National Demand, National Demand is calculated as a sum of generation based on National Grid operational generation metering
+ND - National Demand is calculated as a sum of generation based on National Grid operational generation metering
 
 I014_ND - Equivalent to ND (above) but calculated using settlement metered generation data from the I014 file where available
 
