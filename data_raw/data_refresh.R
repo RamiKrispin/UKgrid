@@ -2,7 +2,7 @@
 
 df_11_16 <- data.table::fread("https://www.nationalgrid.com/sites/default/files/documents/DemandData_2011-2016.csv")
 df_17 <- data.table::fread("https://www.nationalgrid.com/sites/default/files/documents/DemandData_2017.csv")
-df_18 <- data.table::fread("https://www.nationalgrid.com/sites/default/files/documents/DemandData_2018_1.csv")
+df_18 <- data.table::fread("https://www.nationalgrid.com/sites/default/files/documents/DemandData_2018_2.csv")
 
 
 df_11_16$SETTLEMENT_DATE <- lubridate::dmy(df_11_16$SETTLEMENT_DATE)
