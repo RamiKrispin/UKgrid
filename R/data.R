@@ -69,8 +69,9 @@
 #' could be either an integer with the year value (4-digits format) or Date/POSIXt obejct
 #' @param aggregate A string, if not NULL (default) aggregate up the series.
 #' possible aggregation options are c("hourly", "daily", "weekly", "monthly", "quarterly", "yearly")
-#' @param weekly_agg A string, set the week of the year definition if the argument "aggregate"  is set to "weekly".
-#' Possible options "index" (default), "week", "isoweek", or "epiweek"
+#' @param weekly_agg A string, define the week count methodology (according to the lubridate \code{\link[lubridate]{week}} functions setting)
+#' to be used when the aggregation of the series set to weekly.
+#' Possible options "index" (default), "week", "isoweek", or "epiweek".
 #' @param na.rm A boolean, if TRUE will use the na.rm function to ignore any missing values in the aggregation process
 #' @details Field descriptions, source National Grid UK \href{https://www.nationalgrid.com/uk}{website}
 #'
