@@ -16,4 +16,92 @@ knitr::opts_chunk$set(
 )
 ```
 
-Place holder...
+### The UK National Electricity Transmission System Dataset
+
+#### Intro
+
+The UKgrid is an R dataset package with the historical national demand of the electricity transmission system in the UK and other related variables. This dataset is a half-hourly time series data with observations since January 2011. This dataset was sourced from National Grid UK [website](https://www.nationalgrid.com/uk).
+
+#### Installation
+
+Install the package from [CRAN](https://CRAN.R-project.org/package=UKgrid):
+
+```{r eval=FALSE, message=TRUE, warning=TRUE, include=TRUE}
+install.packages("UKgrid")
+```
+
+or install the development version from [Github](https://github.com/RamiKrispin/UKgrid):
+
+```{r eval=FALSE, message=TRUE, warning=TRUE, include=TRUE}
+# install.packages("devtools")
+devtools::install_github("RamiKrispin/UKgrid")
+```
+
+### Usage
+
+```{r}
+library(UKgrid)
+
+data("UKgrid")
+
+str(UKgrid)
+```
+
+A variable dictionary is available in the dataset documentation. 
+
+#### The extract_grid function
+
+The extract_grid function provides the ability to extract the UKgrid series in a different format ("xts", "zoo", "ts", "data.frame", "data.table" and "tbl"), frequencies (half-hourly, hourly, daily, weekly, monthly and quarterly), and subset the series by time frame.   
+
+For example, you can select the national demand variable (ND), in an xts format:
+
+```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+nd_half_hourly <- extract_grid(type = "xts", # default
+                          columns = "ND", # default
+                          aggregate = NULL # default
+                          )
+
+library(TSstudio)
+
+ts_info(nd_half_hourly)
+
+ts_plot(ts.obj = nd_half_hourly, 
+        title = "UK National Demand - Half-Hourly")
+
+```
+
+Alternatively, you can aggregate the series to an hourly frequency with the aggregate argument:
+
+```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+nd_hourly <- extract_grid(type = "ts", 
+                          columns = "ND", 
+                          aggregate = "hourly" 
+                          )
+
+ts_info(nd_hourly)
+
+ts_plot(ts.obj = nd_hourly, 
+        title = "UK National Demand - Hourly")
+
+```
+
+
+Selection of the UKgrid columns is done by the columns argument. The full list of columns is available on the dataset documentation (?UKgrid). For instance, let's select the "ND" and "TSD" columns in a daily format:
+
+```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+df <- extract_grid(type = "tbl", 
+                          columns = c("ND","TSD"), 
+                          aggregate = "daily" 
+                          )
+
+head(df)
+
+ts_plot(ts.obj = df, 
+        title = "UK National and Transmission System Demand - Daily")
+
+```
+
+Note: by default, when any of the data frame family structure is used, the output will include the timestamp of the data (even if was not selected in the columns argument)
