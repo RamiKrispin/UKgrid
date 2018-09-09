@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{extract_grid}
 \alias{extract_grid}
-\title{Extracting and transforming data from the UKgrid Dataset}
+\title{Extracting and Aggregation of the UKgrid Dataset}
 \usage{
 extract_grid(type = "xts", columns = "ND", start = NULL, end = NULL,
   aggregate = NULL, weekly_agg = "index", na.rm = TRUE)
@@ -29,7 +29,7 @@ Possible options "index" (default), "week", "isoweek", or "epiweek".}
 \item{na.rm}{A boolean, if TRUE will use the na.rm function to ignore any missing values in the aggregation process}
 }
 \description{
-Extracting and transforming data from the UKgrid Dataset
+Extracting and Aggregation of the UKgrid Dataset
 }
 \details{
 Field descriptions, source National Grid UK \href{https://www.nationalgrid.com/uk}{website}

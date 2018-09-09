@@ -58,7 +58,7 @@
 "UKgrid"
 
 
-#' Extracting and transforming data from the UKgrid Dataset
+#' Extracting and Aggregation of the UKgrid Dataset
 #' @export extract_grid
 #' @param type A character, define the output type - c("xts", "zoo", "ts", "mts", "data.frame", "tbl", "data.table")
 #' @param columns Selecting the columns names to be used from the UKgrid dataset,
