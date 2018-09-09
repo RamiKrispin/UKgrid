@@ -169,7 +169,7 @@ extract_grid <- function(type = "xts",
           columns <- c(time_stamp, columns)
         }
       # Getting the numeric value of the columns
-      columns <- base::which(columns %in% base::names(UKgrid))
+      columns <- base::which(base::names(UKgrid) %in% columns)
     } else if(base::is.numeric(columns)){
       if(!base::all(columns %in% 1:base::ncol(UKgrid))){
         if(!base::any(columns %in% 1:base::ncol(UKgrid))){
