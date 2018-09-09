@@ -275,7 +275,11 @@ extract_grid <- function(type = "xts",
     df$hour <- lubridate::hour(df$TIMESTAMP)
     df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
     dplyr::group_by(date, hour) %>%
-    dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm)
+    dplyr::summarise_all(dplyr::funs(base::sum), na.rm = na.rm) %>%
+      dplyr::mutate_all(dplyr::funs(replace(., . == 0, NA)))
+
+    df1$hour[base::which(base::is.na(df1$hour))] <- 0
+
     df1$TIMESTAMP <- lubridate::ymd_h(paste(df1$date, df1$hour, sep = " "), tz = "GMT")
     df1$date <- df1$hour <- NULL
     df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
