@@ -105,3 +105,20 @@ ts_plot(ts.obj = df,
 ```
 
 Note: by default, when any of the data frame family structure is used, the output will include the timestamp of the data (even if was not selected in the columns argument)
+
+Last but not least, you can subset the series by time range with the start and end argument:
+
+```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+df1 <- extract_grid(type = "tbl", 
+                          columns = "ND", 
+                          aggregate = "daily", 
+                          start = 2015,
+                          end = 2017)
+
+head(df1)
+
+ts_plot(ts.obj = df1, 
+        title = "UK National and Transmission System Demand - Daily between 2015 and 2017")
+
+```
