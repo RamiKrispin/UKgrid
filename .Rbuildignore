@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^vignettes/png
 ^data_raw$
+^cran-comments\.md$
