@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 #### Intro
 
-The UKgrid is an R dataset package with the historical national demand of the electricity transmission system in the UK and other related variables. This dataset is a half-hourly time series data with observations since January 2011. This dataset was sourced from National Grid UK [website](https://www.nationalgrid.com/uk).
+The `UKgrid` is an R dataset package with the historical national demand of the electricity transmission system in the UK and other related variables. This dataset is a half-hourly time series data with observations since January 2011. This dataset was sourced from National Grid UK [website](https://www.nationalgrid.com/uk).
 
 #### Installation
 
@@ -49,11 +49,11 @@ str(UKgrid)
 
 A variable dictionary is available in the dataset documentation. 
 
-#### The extract_grid function
+#### The `extract_grid` function
 
-The extract_grid function provides the ability to extract the UKgrid series in a different format ("xts", "zoo", "ts", "data.frame", "data.table" and "tbl"), frequencies (half-hourly, hourly, daily, weekly, monthly and quarterly), and subset the series by time frame.   
+The `extract_grid` function provides the ability to extract the UKgrid series in a different format (`xts`, `zoo`, `ts`, `data.frame`, `data.table` and `tbl`), frequencies (half-hourly, hourly, daily, weekly, monthly and quarterly), and subset the series by time frame.   
 
-For example, you can select the national demand variable (ND), in an xts format:
+For example, you can select the national demand variable (ND), using `xts` format:
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
@@ -71,7 +71,7 @@ ts_plot(ts.obj = nd_half_hourly,
 
 ```
 
-Alternatively, you can aggregate the series to an hourly frequency with the aggregate argument:
+Alternatively, you can aggregate the series to an hourly frequency with the `aggregate` argument:
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
@@ -88,7 +88,7 @@ ts_plot(ts.obj = nd_hourly,
 ```
 
 
-Selection of the UKgrid columns is done by the columns argument. The full list of columns is available on the dataset documentation (?UKgrid). For instance, let's select the "ND" and "TSD" columns in a daily format:
+Selection of the UKgrid columns is done by the `columns` argument. The full list of columns is available on the dataset documentation (`?UKgrid`). For instance, let's select the "ND" and "TSD" columns in a daily format:
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
@@ -106,7 +106,7 @@ ts_plot(ts.obj = df,
 
 Note: by default, when any of the data frame family structure is used, the output will include the timestamp of the data (even if was not selected in the columns argument)
 
-Last but not least, you can subset the series by time range with the start and end argument:
+Last but not least, you can subset the series by time range with the `start` and `end` argument:
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
