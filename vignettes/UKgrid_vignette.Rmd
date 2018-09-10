@@ -62,10 +62,14 @@ nd_half_hourly <- extract_grid(type = "xts", # default
                           aggregate = NULL # default
                           )
 
+
+
+library(xts)
+
+class(nd_half_hourly)
+periodicity(nd_half_hourly)
+
 library(TSstudio)
-
-ts_info(nd_half_hourly)
-
 ts_plot(ts.obj = nd_half_hourly, 
         title = "UK National Demand - Half-Hourly")
 
