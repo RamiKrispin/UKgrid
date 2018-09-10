@@ -80,7 +80,8 @@ nd_hourly <- extract_grid(type = "ts",
                           aggregate = "hourly" 
                           )
 
-ts_info(nd_hourly)
+class(nd_hourly)
+frequency(nd_hourly)
 
 ts_plot(ts.obj = nd_hourly, 
         title = "UK National Demand - Hourly")
