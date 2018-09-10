@@ -97,7 +97,7 @@ Selection of the UKgrid columns is done by the `columns` argument. The full list
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
-df <- extract_grid(type = "tbl", 
+df <- extract_grid(type = "xts", 
                           columns = c("ND","TSD"), 
                           aggregate = "daily" 
                           )
@@ -115,7 +115,7 @@ Last but not least, you can subset the series by time range with the `start` and
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
-df1 <- extract_grid(type = "tbl", 
+df1 <- extract_grid(type = "zoo", 
                           columns = "ND", 
                           aggregate = "daily", 
                           start = 2015,
