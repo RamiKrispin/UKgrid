@@ -129,6 +129,9 @@ extract_grid <- function(type = "xts",
                          aggregate = NULL,
                          weekly_agg = "index",
                          na.rm = TRUE){
+
+
+  . <- TIMESTAMP <- hour <- year <- month <- quarter <-  week <-  NULL
   `%>%` <- magrittr::`%>%`
   UKgrid <- time_stamp <- NULL
   UKgrid <- UKgrid::UKgrid
