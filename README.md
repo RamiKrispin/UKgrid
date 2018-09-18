@@ -16,12 +16,19 @@ The data was sourced from the National Grid UK [website](https://www.nationalgri
 Installation
 ------------
 
-Install the development version from [Github](https://github.com/RamiKrispin/UKgrid):
+Install the stable version from [CRAN](https://CRAN.R-project.org/package=UKgrid):
+
+``` r
+install.packages("UKgrid")
+```
+
+or install the development version from [Github](https://github.com/RamiKrispin/UKgrid):
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("RamiKrispin/TSstudio")
+devtools::install_github("RamiKrispin/UKgrid")
 ```
+
 
 Usage
 -----
