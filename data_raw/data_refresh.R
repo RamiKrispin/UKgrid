@@ -6,7 +6,7 @@ df_17 <- data.table::fread("https://www.nationalgrid.com/sites/default/files/doc
 # df_18 <- data.table::fread("https://www.nationalgrideso.com/sites/eso/files/documents/DemandData_2018_4.csv")
 df_18 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2018_1551263484189.csv")
 df_19 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2019_1567762394330.csv")
-
+df_19a <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/demandupdatedownload")
 
 df_11_16$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_11_16$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
 df_17$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_17$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
