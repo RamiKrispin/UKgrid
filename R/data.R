@@ -54,7 +54,7 @@
 #'
 #' @examples
 #' data(UKgrid)
-#' plot(UKgrid$ND)
+#' plot(UKgrid$TIMESTAMP, UKgrid$ND, type = "l")
 
 "UKgrid"
 
