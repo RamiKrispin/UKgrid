@@ -1,21 +1,39 @@
 # Load the UK nationalgrid data
 rm(list = ls())
 `%>%` <- magrittr::`%>%`
+df_05 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2005_1542016460040.csv")
+df_06 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2006_1542016477936.csv")
+df_07 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2007_1542016490891.csv")
+df_08 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2008_1542016504804.csv")
+df_09 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2009_1542016517401.csv")
+df_10 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2010_1542016528958.csv")
 df_11_16 <- data.table::fread("https://www.nationalgrid.com/sites/default/files/documents/DemandData_2011-2016.csv")
 df_17 <- data.table::fread("https://www.nationalgrid.com/sites/default/files/documents/DemandData_2017.csv")
-# df_18 <- data.table::fread("https://www.nationalgrideso.com/sites/eso/files/documents/DemandData_2018_4.csv")
 df_18 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2018_1551263484189.csv")
-df_19 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2019_1567762394330.csv")
-df_19a <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/demandupdatedownload")
+df_19 <- data.table::fread("https://demandforecast.nationalgrid.com/efs_demand_forecast/downloadfile?filename=DemandData_2019_1572344306840.csv")
 
+
+
+df_05$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_05$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
+df_06$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_06$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
+df_07$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_07$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
+df_08$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_08$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
+df_09$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_09$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
+df_10$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_10$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
 df_11_16$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_11_16$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
 df_17$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_17$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
 df_18$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_18$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
 df_19$SETTLEMENT_DATE <- base::as.Date(lubridate::dmy(df_19$SETTLEMENT_DATE, tz = "UTC"), tz = "UTC")
 
+df_05$I014_TSD.1 <- NULL
+df_06$I014_TSD.1 <- NULL
+df_07$I014_TSD.1 <- NULL
+df_08$I014_TSD.1 <- NULL
+df_09$I014_TSD.1 <- NULL
+df_10$I014_TSD.1 <- NULL
 df_11_16$I014_TSD.1 <- NULL
-
-df <- rbind(df_11_16, df_17, df_18, df_19)
+df_19$NEMO_FLOW <- NULL
+df <- rbind(df_05, df_06, df_07, df_08, df_09, df_10, df_11_16, df_17, df_18, df_19)
 
 start_date <- min(df$SETTLEMENT_DATE)
 end_date <- max(df$SETTLEMENT_DATE)
