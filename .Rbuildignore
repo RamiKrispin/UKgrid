@@ -1,8 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^vignettes/png
 ^data_raw$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^docs$
 ^vignettes/*.*$
+^man/figures/*.*$
