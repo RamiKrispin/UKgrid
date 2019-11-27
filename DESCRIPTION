@@ -22,7 +22,7 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    devtools,
+    remotes,
     TSstudio
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1

@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 #### Intro
 
-The `UKgrid` is an R dataset package with the historical national demand of the electricity transmission system in the UK and other related variables. This dataset is a half-hourly time series data with observations since January 2011. This dataset was sourced from National Grid UK [website](https://www.nationalgrid.com/uk).
+The `UKgrid` is an R dataset package with the historical national demand of the electricity transmission system in the UK and other related variables. This dataset is a half-hourly time series data with observations since April 2005. This dataset was sourced from National Grid UK [website](https://www.nationalgrid.com/uk).
 
 #### Installation
 
