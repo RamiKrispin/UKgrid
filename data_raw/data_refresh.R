@@ -70,6 +70,9 @@ head(date_vec, 49)
 
 
 UKgrid <- date_vec %>% dplyr::left_join(df, by = c("SETTLEMENT_DATE", "SETTLEMENT_PERIOD")) %>%
+  dplyr::select(TIMESTAMP, ND, I014_ND, TSD, I014_TSD,
+                ENGLAND_WALES_DEMAND, EMBEDDED_WIND_GENERATION, EMBEDDED_WIND_CAPACITY,
+                EMBEDDED_SOLAR_GENERATION, EMBEDDED_SOLAR_CAPACITY) %>%
   dplyr::arrange(TIMESTAMP)
 
 plot(UKgrid$TIMESTAMP, UKgrid$ND, type = "l")
