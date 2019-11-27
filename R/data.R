@@ -236,12 +236,10 @@ extract_grid <- function(type = "tsibble",
     df$hour <- lubridate::hour(df$TIMESTAMP)
     df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
     dplyr::group_by(date, hour) %>%
-    dplyr::summarise_all(dplyr::funs(base::sum), na.rm = na.rm) %>%
-      dplyr::mutate_all(dplyr::funs(replace(., . == 0, NA)))
+      dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)
 
-    df1$hour[base::which(base::is.na(df1$hour))] <- 0
 
-    df1$TIMESTAMP <- lubridate::ymd_h(paste(df1$date, df1$hour, sep = " "), tz = "GMT")
+    df1$TIMESTAMP <- lubridate::ymd_h(paste(df1$date, df1$hour, sep = " "), tz = "UTC")
     df1$date <- df1$hour <- NULL
     df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
     frequency <- 24
@@ -250,7 +248,8 @@ extract_grid <- function(type = "tsibble",
     df$date <- base::as.Date(df$TIMESTAMP)
     df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
       dplyr::group_by(date) %>%
-      dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm)
+      dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)
+
     df1$TIMESTAMP <- df1$date
     df1$date <-  NULL
     df1 <- as.data.frame(df1[, c(base::which(base::colnames(df1) == time_stamp), base::which(base::colnames(df1) != time_stamp))])
@@ -273,7 +272,7 @@ extract_grid <- function(type = "tsibble",
 
     df1 <- df %>% dplyr::select(-TIMESTAMP, - date) %>%
       dplyr::group_by(year, week) %>%
-      dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm)
+      dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)
     } else if(weekly_agg == "index"){
       temp <- index <- NULL
 
@@ -283,12 +282,12 @@ extract_grid <- function(type = "tsibble",
 
       temp <- df %>% dplyr::select(-TIMESTAMP, -year) %>%
       dplyr::group_by(date) %>%
-        dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm)
+        dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)
       temp$week <- base::rep(1:base::length(index), each = 7)[1:nrow(temp)]
 
       df1 <- temp %>% dplyr::select(-date) %>%
       dplyr::group_by(week) %>%
-        dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm)
+        dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)
     }
 
     df1$TIMESTAMP <- base::seq.Date(from = base::as.Date(start_date), by = "weeks", length.out = nrow(df1))
@@ -304,7 +303,7 @@ extract_grid <- function(type = "tsibble",
     df$year <- lubridate::year(df$TIMESTAMP)
     df1 <- base::suppressMessages(df %>% dplyr::select(-TIMESTAMP, - date) %>%
       dplyr::group_by(year, month) %>%
-      dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm) %>%
+      dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)  %>%
       dplyr::left_join(df %>%
                          dplyr::group_by(year, month) %>%
                          dplyr::summarise(date = min(date, na.rm = na.rm))))
@@ -320,7 +319,7 @@ extract_grid <- function(type = "tsibble",
     df$year <- lubridate::year(df$TIMESTAMP)
     df1 <- base::suppressMessages(df %>% dplyr::select(-TIMESTAMP, - date) %>%
       dplyr::group_by(year, quarter) %>%
-      dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm) %>%
+      dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)  %>%
       dplyr::left_join(df %>%
                          dplyr::group_by(year, quarter) %>%
                          dplyr::summarise(date = min(date, na.rm = na.rm))))
@@ -335,7 +334,7 @@ extract_grid <- function(type = "tsibble",
     df$year <- lubridate::year(df$TIMESTAMP)
     df1 <- base::suppressMessages(df %>% dplyr::select(-TIMESTAMP, - date) %>%
       dplyr::group_by(year) %>%
-      dplyr::summarise_all(dplyr::funs(sum), na.rm = na.rm) %>%
+      dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)  %>%
       dplyr::left_join(df %>%
                          dplyr::group_by(year) %>%
                          dplyr::summarise(date = min(date, na.rm = na.rm))))
