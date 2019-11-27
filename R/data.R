@@ -39,7 +39,7 @@
 
 #' Extracting and Aggregation of the UKgrid Dataset
 #' @export extract_grid
-#' @param type A character, define the output type - c("xts", "zoo", "ts", "mts", "data.frame", "tbl", "data.table")
+#' @param type A character, define the output type - c(`tsibble`,`xts`, `zoo`, `ts`, `mts`, `data.frame`, `tbl`, `data.table`)
 #' @param columns Selecting the columns names to be used from the UKgrid dataset,
 #' can be either the numeric values of the columns index, or a string with the column names. Please see below the field descriptions
 #' @param start Defines the starting date and time of the data extractions,
@@ -75,10 +75,10 @@
 #' EMBEDDED_SOLAR_CAPACITY - Embedded Solar Capacity, As embedded wind capacity above, but for solar generation
 #'
 #' @examples
-#' df <- extract_grid(type = "xts", columns = "ND", start = 2017)
+#' df <- extract_grid(type = "tsibble", columns = "ND", start = 2017)
 #'
 
-extract_grid <- function(type = "xts",
+extract_grid <- function(type = "tsibble",
                          columns = "ND",
                          start = NULL,
                          end = NULL,
@@ -365,6 +365,8 @@ extract_grid <- function(type = "xts",
     ts.obj <- dplyr::as.tbl(df1)
   } else if(type == "data.table"){
     ts.obj <- data.table::as.data.table(df1)
+  } else if(type == "tsibble"){
+    ts.obj <- df1 %>% tsibble::as_tsibble(index = "TIMESTAMP")
   }
 
   return(ts.obj)

@@ -4,11 +4,11 @@
 \alias{extract_grid}
 \title{Extracting and Aggregation of the UKgrid Dataset}
 \usage{
-extract_grid(type = "xts", columns = "ND", start = NULL,
+extract_grid(type = "tsibble", columns = "ND", start = NULL,
   end = NULL, aggregate = NULL, weekly_agg = "index", na.rm = TRUE)
 }
 \arguments{
-\item{type}{A character, define the output type - c("xts", "zoo", "ts", "mts", "data.frame", "tbl", "data.table")}
+\item{type}{A character, define the output type - c(`tsibble`,`xts`, `zoo`, `ts`, `mts`, `data.frame`, `tbl`, `data.table`)}
 
 \item{columns}{Selecting the columns names to be used from the UKgrid dataset,
 can be either the numeric values of the columns index, or a string with the column names. Please see below the field descriptions}
@@ -55,6 +55,6 @@ EMBEDDED_SOLAR_GENERATION - Estimated Embedded Solar Generation, As embedded win
 EMBEDDED_SOLAR_CAPACITY - Embedded Solar Capacity, As embedded wind capacity above, but for solar generation
 }
 \examples{
-df <- extract_grid(type = "xts", columns = "ND", start = 2017)
+df <- extract_grid(type = "tsibble", columns = "ND", start = 2017)
 
 }
