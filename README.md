@@ -15,7 +15,7 @@ An R data package with the UK [National Grid](https://en.wikipedia.org/wiki/Nati
 
 Overview
 --------
-The UKgrid dataset is an example of a multiple seasonality time series. This time series captures the demand for electricity and its components in the UK since April 2005 using half-hour intervals. In addition, the package provides a function to extract, subset and aggregate the series into `ts`, `xts`, `zoo`, `data.frame`, `data.table`, or `tbl`. 
+The UKgrid dataset is an example of a multiple seasonality time series. This time series captures the demand for electricity and its components in the UK since April 2005 using half-hour intervals. In addition, the package provides a function to extract, subset and aggregate the series into `tsibble`, `ts`, `xts`, `zoo`, `data.frame`, `data.table`, or `tbl`. 
 
 The data was sourced from the National Grid UK [website](https://www.nationalgrid.com/uk)
 
@@ -48,8 +48,8 @@ library(UKgrid)
 # Load the full dataset (data.frame format)
 data("UKgrid")
 
-# Extract only the demand field (ND - Net Demand) using xts format
-extract_grid(type = "xts", 
+# Extract only the demand field (ND - National Demand) using tsibble format
+extract_grid(type = "tsibble", 
              columns = "ND") 
 
 # Extract the demand between 2016 and 2017 using tbl format

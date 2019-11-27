@@ -51,26 +51,32 @@ A variable dictionary is available in the dataset documentation.
 
 #### The `extract_grid` function
 
-The `extract_grid` function provides the ability to extract the UKgrid series in a different format (`xts`, `zoo`, `ts`, `data.frame`, `data.table` and `tbl`), frequencies (half-hourly, hourly, daily, weekly, monthly and quarterly), and subset the series by time frame.   
+The `extract_grid` function provides the ability to extract the UKgrid series in a different format (`tsibble`, `xts`, `zoo`, `ts`, `data.frame`, `data.table` and `tbl`), frequencies (half-hourly, hourly, daily, weekly, monthly and quarterly), and subset the series by time frame.   
 
-For example, you can select the national demand variable (ND), using `xts` format:
+For example, you can select the national demand variable (ND), using `tsibble` format:
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
-nd_half_hourly <- extract_grid(type = "xts", # default
+nd_half_hourly <- extract_grid(type = "tsibble", # default
                           columns = "ND", # default
                           aggregate = NULL # default
                           )
 
 
 
-library(xts)
+library(tsibble)
+
+head(nd_half_hourly)
 
 class(nd_half_hourly)
-periodicity(nd_half_hourly)
+
+index(nd_half_hourly)
+
+interval(nd_half_hourly)
 
 library(TSstudio)
-ts_plot(ts.obj = nd_half_hourly, 
+
+ts_plot(ts.obj = nd_half_hourly,
         title = "UK National Demand - Half-Hourly")
 
 ```
@@ -79,13 +85,13 @@ Alternatively, you can aggregate the series to an hourly frequency with the `agg
 
 ```{r fig.height=5, fig.width=8, message=FALSE, warning=FALSE, paged.print=FALSE}
 
-nd_hourly <- extract_grid(type = "ts", 
+nd_hourly <- extract_grid(type = "tsibble", 
                           columns = "ND", 
                           aggregate = "hourly" 
                           )
 
-class(nd_hourly)
-frequency(nd_hourly)
+
+interval(nd_hourly)
 
 ts_plot(ts.obj = nd_hourly, 
         title = "UK National Demand - Hourly")
