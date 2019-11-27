@@ -21,6 +21,7 @@ Imports:
   xts (>= 0.10-1),
   zoo (>= 1.8-0)
 Suggests:
+    devtools,
     knitr,
     rmarkdown,
     remotes,
