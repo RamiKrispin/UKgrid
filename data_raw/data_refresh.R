@@ -48,7 +48,12 @@ df_14$I014_TSD.1 <- NULL
 df_15$I014_TSD.1 <- NULL
 
 df_19$NEMO_FLOW <- NULL
-df <- rbind(df_05, df_06, df_07, df_08, df_09, df_10,
+
+# Dropping duplicated
+
+df_10a <- df_10 %>% dplyr::mutate(year = lubridate::year(SETTLEMENT_DATE)) %>% dplyr::filter(year == 2010) %>% dplyr::select(-year)
+
+df <- rbind(df_05, df_06, df_07, df_08, df_09, df_10a,
             df_11, df_12, df_13, df_14, df_15,
             df_16, df_17, df_18, df_19)
 
