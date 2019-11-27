@@ -34,8 +34,8 @@ install.packages("UKgrid")
 or install the development version from [Github](https://github.com/RamiKrispin/UKgrid):
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("RamiKrispin/UKgrid")
+# install.packages("remotes")
+remotes::install_github("RamiKrispin/UKgrid")
 ```
 
 
