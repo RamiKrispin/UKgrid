@@ -60,28 +60,13 @@ end_time <- base::as.POSIXct(base::paste(end_date, "23:30:00", sep = " "), tz = 
 # Filling missing values
 date_vec <- data.frame(TIMESTAMP = seq.POSIXt(from = start_time, to = end_time, by = "30 min"))
 date_vec$SETTLEMENT_DATE <- as.Date(date_vec$TIMESTAMP)
-date_vec$SETTLEMENT_PERIOD <- (as.numeric(date_vec$TIMESTAMP) - as.numeric(min(date_vec$TIMESTAMP))) / 1800
-head(date_vec)
+date_vec$SETTLEMENT_PERIOD <- base::as.numeric(lubridate::minute(date_vec$TIMESTAMP)) / 30 + base::as.numeric(lubridate::hour(date_vec$TIMESTAMP)) * 2 + 1
+head(date_vec, 49)
 
 
-df1 <- date_vec %>% dplyr::left_join(df)
+UKgrid <- date_vec %>% dplyr::left_join(df, by = c("SETTLEMENT_DATE", "SETTLEMENT_PERIOD")) %>%
+  dplyr::arrange(TIMESTAMP)
 
-df1$year <- lubridate::year(df1$SETTLEMENT_DATE)
-df1$month <- lubridate::month(df1$SETTLEMENT_DATE)
-df1$day <- lubridate::mday(df1$SETTLEMENT_DATE)
-df1$minutes <- ifelse(df1$SETTLEMENT_PERIOD %% 2 == 0, "30","00")
-df1$hours <- floor(df1$SETTLEMENT_PERIOD / 2 - 0.5)
-df1$TIMESTAMP <- lubridate::ydm_hm(paste(df1$year, df1$day ,df1$month, df1$hours, df1$minutes, sep = "-"))
+plot(UKgrid$TIMESTAMP, UKgrid$ND, type = "l")
 
-df1$year <- df1$month <- df1$day <- df1$minutes <- df1$hours <-
-  df1$SETTLEMENT_DATE <- df1$SETTLEMENT_PERIOD <- NULL
-
-col_time <- which(colnames(df1) == "TIMESTAMP")
-col <- base::setdiff(1:ncol(df1), col_time)
-
-df2 <- base::as.data.frame(df1)
-col_names <- c(base::names(df2)[col_time], base::names(df2)[col])
-
-UKgrid <- df2[, col_names]
-
-devtools::use_data(UKgrid, overwrite = TRUE)
+usethis::use_data(UKgrid, overwrite = TRUE)
