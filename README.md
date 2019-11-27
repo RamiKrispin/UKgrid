@@ -65,3 +65,5 @@ extract_grid(type = "zoo",
              end = as.Date("2018-01-10"),
              aggregate = "hourly")
 ``` 
+
+More details available on the package [site](https://ramikrispin.github.io/UKgrid/) and [vignette](https://ramikrispin.github.io/UKgrid/articles/UKgrid_vignette.html)
