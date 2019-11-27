@@ -82,11 +82,13 @@
 <div id="ukgrid" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#ukgrid" class="anchor"></a>UKgrid</h1></div>
+<!-- badges: start -->
+
 <p>An R data package with the UK <a href="https://en.wikipedia.org/wiki/National_Grid_(Great_Britain)">National Grid</a> historical demand for electricity between April 2005 and October 2019</p>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The UKgrid dataset is an example of a multiple seasonality time series. This time series captures the demand for electricity and its components in the UK since April 2005 using half-hour intervals. In addition, the package provides a function to extract, subset and aggregate the series into <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tbl</code>.</p>
+<p>The UKgrid dataset is an example of a multiple seasonality time series. This time series captures the demand for electricity and its components in the UK since April 2005 using half-hour intervals. In addition, the package provides a function to extract, subset and aggregate the series into <code>tsibble</code>, <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tbl</code>.</p>
 <p>The data was sourced from the National Grid UK <a href="https://www.nationalgrid.com/uk">website</a></p>
 <p><img src="reference/figures/UK_natioal_demand.png" width="100%"></p>
 </div>
@@ -107,8 +109,8 @@
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co"># Load the full dataset (data.frame format)</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"UKgrid"</span>)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># Extract only the demand field (ND - Net Demand) using xts format</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw"><a href="reference/extract_grid.html">extract_grid</a></span>(<span class="dt">type =</span> <span class="st">"xts"</span>, </a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># Extract only the demand field (ND - National Demand) using tsibble format</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw"><a href="reference/extract_grid.html">extract_grid</a></span>(<span class="dt">type =</span> <span class="st">"tsibble"</span>, </a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">             <span class="dt">columns =</span> <span class="st">"ND"</span>) </a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co"># Extract the demand between 2016 and 2017 using tbl format</span></a>
@@ -154,7 +156,15 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-experimental-blue.svg" alt="lifecycle"></a></li>
+<li><a href="https://cran.r-project.org/package=UKgrid"><img src="https://www.r-pkg.org/badges/version/UKgrid" alt="CRAN status"></a></li>
+<li><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
       <footer><div class="copyright">
