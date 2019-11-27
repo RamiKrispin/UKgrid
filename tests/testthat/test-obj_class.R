@@ -45,4 +45,4 @@ x <- UKgrid::extract_grid(type = "tsibble", columns = c("ND", "TSD"), aggregate 
 all(names(x) %in% c("TIMESTAMP", "ND", "TSD"))
 tsibble::is_tsibble(x)
 tsibble::index(x) == "TIMESTAMP"
-lubridate::is.Date(x$TIMESTAMP)
+all(class(x$TIMESTAMP) %in% c("yearmonth", "Date"))
