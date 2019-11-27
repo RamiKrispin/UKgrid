@@ -10,7 +10,7 @@ The UKgrid dataset is an example of a multiple seasonality time series. This tim
 
 The data was sourced from the National Grid UK [website](https://www.nationalgrid.com/uk)
 
-<img src="man/figures/UK natioal demand.png" width="100%" />
+<img src="man/figures/UK_natioal_demand.png" width="100%" />
 
 
 Installation
