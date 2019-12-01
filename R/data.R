@@ -234,9 +234,18 @@ extract_grid <- function(type = "tsibble",
   }  else if(aggregate == "hourly"){
     df$date <- base::as.Date(df$TIMESTAMP)
     df$hour <- lubridate::hour(df$TIMESTAMP)
-    df1 <- df %>% dplyr::select(-TIMESTAMP) %>%
-    dplyr::group_by(date, hour) %>%
-      dplyr::summarise_all(base::list(base::sum), na.rm = na.rm)
+
+    if(na.rm){
+      df1 <- df %>%
+        dplyr::select(-TIMESTAMP) %>%
+        dplyr::group_by(date, hour) %>%
+        dplyr::summarise_all(~{sum(.x, na.rm = any(!is.na(.x)))})
+    } else {
+      df1 <- df %>%
+        dplyr::select(-TIMESTAMP) %>%
+        dplyr::group_by(date, hour) %>%
+        dplyr::summarise_all(base::list(base::sum), na.rm = FALSE)
+    }
 
 
     df1$TIMESTAMP <- lubridate::ymd_h(paste(df1$date, df1$hour, sep = " "), tz = "UTC")
