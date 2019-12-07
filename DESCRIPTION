@@ -1,7 +1,7 @@
 Package: UKgrid
 Type: Package
 Title: The UK National Electricity Transmission System Dataset
-Version: 0.1.1.9000
+Version: 0.1.2
 Authors@R: person("Rami", "Krispin", email = "rami.krispin@gmail.com",
   role = c("aut", "cre"))
 Maintainer: Rami Krispin <rami.krispin@gmail.com>
