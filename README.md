@@ -1,6 +1,4 @@
-UKgrid
-======
-
+# UKgrid <a href='https://ramikrispin.github.io/UKgrid/'><img src='man/figures/UKgrid.png' align="right"  /></a>
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN status](https://www.r-pkg.org/badges/version/UKgrid)](https://cran.r-project.org/package=UKgrid)
