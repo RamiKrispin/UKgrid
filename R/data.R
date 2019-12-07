@@ -374,15 +374,16 @@ extract_grid <- function(type = "tsibble",
   } else if(type == "data.table"){
     ts.obj <- data.table::as.data.table(df1)
   } else if(type == "tsibble"){
+    tsb.obj <- df1
 
     if(!is.null(aggregate) && aggregate == "monthly"){
-      ts.obj$TIMESTAMP <- tsibble::yearmonth(ts.obj$TIMESTAMP)
-      ts.obj <- df1 %>% tsibble::as_tsibble(index = "TIMESTAMP")
+      tsb.obj$TIMESTAMP <- tsibble::yearmonth(tsb.obj$TIMESTAMP)
+      ts.obj <- tsb.obj %>% tsibble::as_tsibble(index = "TIMESTAMP")
     } else if(!is.null(aggregate) && aggregate == "quarterly"){
-      ts.obj$TIMESTAMP <- tsibble::yearquarter(ts.obj$TIMESTAMP)
-      ts.obj <- df1 %>% tsibble::as_tsibble(index = "TIMESTAMP")
+      tsb.obj$TIMESTAMP <- tsibble::yearquarter(tsb.obj$TIMESTAMP)
+      ts.obj <- tsb.obj %>% tsibble::as_tsibble(index = "TIMESTAMP")
     } else {
-      ts.obj <- df1 %>% tsibble::as_tsibble(index = "TIMESTAMP")
+      ts.obj <- tsb.obj %>% tsibble::as_tsibble(index = "TIMESTAMP")
     }
   }
 
