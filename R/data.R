@@ -14,8 +14,6 @@
 #'
 #' ND - National Demand is calculated as a sum of generation based on National Grid operational generation metering
 #'
-#' I014_ND - Equivalent to ND (above) but calculated using settlement metered generation data from the I014 file where available
-#'
 #' TSD - Transmission System Demand, This is the Transmission System generation requirement and is equivalent to the Initial Transmission System Outturn (ITSDO) and Transmission System Demand Forecast on BM Reports. Transmission System Demand is equal to the ND plus the additional generation required to meet station load, pump storage pumping and interconnector exports
 #'
 #' I014_TSD - Equivalent to TSD (above), but calculated using settlement metered generation data from the I014 file where available
