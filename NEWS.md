@@ -1,4 +1,4 @@
-# UKgrid 0.1.1.9000
+# UKgrid 0.1.2
 
 * Refresh the series data - start at April 2005 up to October 2019
 * The `grid_extract` function supports `tsibble` objects
