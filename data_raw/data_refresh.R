@@ -77,4 +77,4 @@ UKgrid <- date_vec %>% dplyr::left_join(df, by = c("SETTLEMENT_DATE", "SETTLEMEN
 
 plot(UKgrid$TIMESTAMP, UKgrid$ND, type = "l")
 
-usethis::use_data(UKgrid, overwrite = TRUE, compress = "xz")
+usethis::use_data(UKgrid, overwrite = TRUE, compress = "bzip2")
