@@ -16,7 +16,6 @@ Imports:
   dplyr(>= 0.7.5),
   lubridate (>= 1.6.0),
   magrittr (>= 1.5),
-  rlang (>= 0.2.1),
   tsibble(>= 0.8.5),
   xts (>= 0.10-1),
   zoo (>= 1.8-0)
